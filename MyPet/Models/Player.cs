@@ -9,6 +9,6 @@ namespace MyPet.Models
     internal class Player
     {
         public string Name {  get; set; }
-        public List<Pet> Pets { get; set; }
+        public List<Pet> Pets { get; set; } = new List<Pet>();
     }
 }
