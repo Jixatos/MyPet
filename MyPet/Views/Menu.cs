@@ -10,8 +10,6 @@ namespace MyPet.Views
 {
     internal class Menu
     {
-
-        private Player player;
         public void Options(string nome)
         {
             Console.Clear();
@@ -20,79 +18,68 @@ namespace MyPet.Views
                 "2 - See Adopted Pets\n"+
                 "0 - Exit Game");
         }
-
-        public void Especies(string[] pokemons)
-        {
-            Console.Clear();
-            Console.WriteLine("Choose your pet:");
-
-            for (int i = 0; i < pokemons.Length; i++)
-            {
-                Console.WriteLine($"{i+1} - {pokemons[i].ToUpper()}");
-            }
-        }
-
-        public int ReadUserInputToInt(string? message = null)
-        {
-            int result;
-            while (true)
-            {
-                if (!string.IsNullOrEmpty(message))
-                {
-                    Console.WriteLine(message);
-                }
-
-                string? input = Console.ReadLine()?.Trim();
-
-                if (string.IsNullOrEmpty(input))
-                {
-                    Console.WriteLine("Entrada inválida. Por favor, tente novamente.");
-                    continue;
-                }
-
-                if (int.TryParse(input, out result))
-                {
-                    return result;
-                }
-
-                Console.WriteLine("Entrada inválida. Digite um número inteiro.");
-            }
-        }
-
-        public void ShowPlayerPokemons(List<Pet> pets)
-        {
-            Console.Clear();
-            if (pets.Count == 0)
-            {
-                Console.WriteLine("The player doesn't have a pet");
-                return;
-            }
-            Console.WriteLine("Pets:");
-            foreach (Pet pet in pets)
-            {
-                Console.WriteLine(pet.Name);
-            }
-        }
-
         public void AdoptOptions(string name)
         {
             Console.Clear();
             Console.WriteLine("Select an option by typing the number:\n" +
                 $"1 - Know more about {name}" +
                 $"2 - Adopt {name}\n" +
-                "3 - Go back\n");
+                "0 - Go back\n");
         }
-
-        public string ReadUserInput(string? message = null)
+        public void GoBackOptions()
         {
             string input;
             do
             {
-                if(message != null)
+                Console.WriteLine("\nGo back to Options?");
+                input = ReadUserInput();
+                switch (input.ToUpper())
+                {
+                    case "YES":
+                        input = "YES";
+                        break;
+                    case "NO":
+                        input = "NO";
+                        break;
+                    default:
+                        Console.WriteLine("Respond with a Yes or No");
+                        break;
+                }
+            } while (input != "YES");
+        }
+        public void ConfirmOptions()
+        {
+            string input;
+            do
+            {
+                Console.WriteLine("Are your sure of your choice?");
+                input = ReadUserInput();
+                switch (input.ToUpper())
+                {
+                    case "YES":
+                        input = "YES";
+                        break;
+                    case "NO":
+                        input = "NO";
+                        break;
+                    default:
+                        Console.WriteLine("Respond with a Yes or No");
+                        break;
+                }
+            } while (input != "YES");
+        }
+        public string ReadUserInput(string? message = null)
+        {
+            string? input;
+            do
+            {
+                if (message != null)
                 {
                     Console.Write(message + "\n");
                 }
+
                 input = Console.ReadLine()?.Trim();
+
                 if (string.IsNullOrEmpty(input))
                 {
                     Console.WriteLine("Invalid entry. Please try again.");
@@ -100,6 +87,21 @@ namespace MyPet.Views
             } while (string.IsNullOrEmpty(input));
 
             return input;
+        }
+        public int? UserOptionsConfirm(int min, int max)
+        {
+            if (!int.TryParse(ReadUserInput(), out int num))
+            {
+                return null;
+            }
+
+            if (num < min || num > max)
+            {
+                Console.WriteLine("Choose a valid option from the menu");
+                return null;
+            }
+
+            return num;
         }
     }
 }

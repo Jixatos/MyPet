@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyPet.Views
 {
-    internal class Mensagens
+    internal class Messages
     {
         public void Welcome()
         {
@@ -22,6 +22,15 @@ namespace MyPet.Views
         public void AdoptCongrats(string playerName, string petName)
         {
             Console.WriteLine($"Congratulations {playerName}, you adopted a {petName} sucessfully!");
+        }
+
+        public void MenuOptions(string nome)
+        {
+            Console.Clear();
+            Console.WriteLine($"{nome}, select an option by typing the number:\n" +
+                "1 - Adopt a Pet\n" +
+                "2 - See Adopted Pets\n" +
+                "0 - Exit Game");
         }
     }
 }

@@ -20,8 +20,9 @@ namespace MyPet.Models
 
         [JsonPropertyName("types")]
         public List<PetType> Types { get; set; } = new List<PetType>();
-
-
+        //public int hungry { get; set; }
+        //public int fatigue { get; set; }
+        //public int humor { get; set; }
     }
     internal class PetType
     {

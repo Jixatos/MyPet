@@ -1,5 +1,6 @@
 ﻿using MyPet.Models;
 using MyPet.Service;
+using MyPet.View;
 using MyPet.Views;
 using System;
 using System.Collections.Generic;
@@ -11,44 +12,48 @@ namespace MyPet.Controllers
 {
     internal class Game
     {
-        private readonly Menu Menu;
-        private readonly Mensagens Mensagens;
+        private readonly Menu _menu;
+        private readonly Messages _message;
+        private readonly PetView _petView;
+        private readonly PlayerView _playerView;
 
         private readonly PokeAPIService Service = new PokeAPIService();
+        private string[] pokemonsNames = ["bulbasaur", "charmander", "squirtle", "torchic"];
         private bool playing = true;
-        private string[] pokemonsNames= ["bulbasaur", "charmander", "squirtle", "torchic"];
 
         public Game()
         {
-            Menu = new Menu();
-            Mensagens = new Mensagens();
+            _menu = new Menu();
+            _message = new Messages();
+            _petView = new PetView();
+            _playerView = new PlayerView();
         }
         public void Start()
         {
-            Mensagens.Welcome();
+            _message.Welcome();
 
             Player player = new Player();
 
-            player.Name = Menu.ReadUserInput("What's your name?");
-            
+            player.Name = _menu.ReadUserInput("What's your name?");
+
             while (playing)
             {
-                Menu.Options(player.Name);
-                int input = Menu.ReadUserInputToInt();
+                _menu.Options(player.Name);
+                int? input = _menu.UserOptionsConfirm(0, 2);
 
-                switch(input)
+                switch (input)
                 {
                     case 1:
-                        Menu.Especies(pokemonsNames);
-                        player.Pets.Add(ChosenPet(player, pokemonsNames));
-                        GoBackOptions();
+                        _petView.ShowEspecies(pokemonsNames);
+                        ChoosePet(player, pokemonsNames);
+                        _menu.GoBackOptions();
                         break;
                     case 2:
-                        Menu.ShowPlayerPokemons(player.Pets);
-                        GoBackOptions();
+                        _playerView.ShowPlayerPokemons(player.Pets);
+                        _menu.GoBackOptions();
                         break;
                     case 0:
-                        Mensagens.Goodbye();
+                        _message.Goodbye();
                         Console.Clear();
                         playing = false;
                         break;
@@ -59,41 +64,37 @@ namespace MyPet.Controllers
             }
         }
 
-        public Pet ChosenPet(Player player, string[] pokemonsNames)
+        public void ChoosePet(Player player, string[] pokemonsNames)
         {
-            int num = Menu.ReadUserInputToInt();
-
-            Pet pet = Service.GetPokemonByName(pokemonsNames[num-1]);
-
-            if (pet == null)
+            try
             {
-                Console.WriteLine("Pet not found!");
-            }
+                int? num = _menu.UserOptionsConfirm(1, 4);
 
-            return pet;
-        }
-
-        public void GoBackOptions()
-        {
-            string input;
-            do
-            {
-                Console.WriteLine("\nGo back to Options?");
-                input = Menu.ReadUserInput();
-                switch (input.ToUpper())
+                if (num == null)
                 {
-                    case "YES":
-                        input = "YES";
-                        break;
-                    case "NO":
-                        input = "NO";
-                        break;
-                    default:
-                        Console.WriteLine("Respond with a Yes or No");
-                        break;
-                }              
-            } while (input != "YES");
+                    return;
+                }
 
+                Pet pet = Service.GetPokemonByName(pokemonsNames[(int)(num - 1)]);
+
+                if (pet == null)
+                {
+                    Console.WriteLine("Error: Could not retrive the pokeom from the API");
+                    return;
+                }
+
+                player.Pets.Add(pet);
+                _petView.PetInfos(pet);
+                _message.AdoptCongrats(player.Name, pet.Name);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("Error: Choose a valid number");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Unexpected Error: {e.Message}");
+            }
         }
     }
 }

@@ -9,6 +9,16 @@ namespace MyPet.View
 {
     internal class PetView
     {
+        public void ShowEspecies(string[] pokemons)
+        {
+            Console.Clear();
+            Console.WriteLine("Choose your pet:");
+
+            for (int i = 0; i < pokemons.Length; i++)
+            {
+                Console.WriteLine($"{i + 1} - {pokemons[i].ToUpper()}");
+            }
+        }
         public void PetInfos(Pet pet)
         {
             Console.WriteLine($"Say hi to your new pet!");
@@ -18,6 +28,7 @@ namespace MyPet.View
             {
                 Console.Write($"{type.Type.Name.ToUpper()}  ");
             }
+            Console.WriteLine("\n");
         }
     }
 }
