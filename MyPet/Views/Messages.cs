@@ -23,14 +23,5 @@ namespace MyPet.Views
         {
             Console.WriteLine($"Congratulations {playerName}, you adopted a {petName} sucessfully!");
         }
-
-        public void MenuOptions(string nome)
-        {
-            Console.Clear();
-            Console.WriteLine($"{nome}, select an option by typing the number:\n" +
-                "1 - Adopt a Pet\n" +
-                "2 - See Adopted Pets\n" +
-                "0 - Exit Game");
-        }
     }
 }

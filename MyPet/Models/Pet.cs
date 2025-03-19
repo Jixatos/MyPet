@@ -24,15 +24,5 @@ namespace MyPet.Models
         //public int fatigue { get; set; }
         //public int humor { get; set; }
     }
-    internal class PetType
-    {
-        [JsonPropertyName("type")]
-        public TypeInfo Type { get; set; }
-    }
 
-    internal class TypeInfo
-    {
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-    }
 }
