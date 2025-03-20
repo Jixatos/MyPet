@@ -1,16 +1,16 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyPet.Controllers;
 using MyPet.Data;
-using MyPet.Models;
 using MyPet.Service;
-using MyPet.View;
-using MyPet.Views;
-using System.Text.Json;
 
 var serviceProvider = DependencyInjectionConfig.Configure();
 
 MenuController menuController = serviceProvider.GetRequiredService<MenuController>();
+PlayerController playerController = serviceProvider.GetRequiredService<PlayerController>();
 Game game = serviceProvider.GetRequiredService<Game>();
 
-game.Start();
+playerController.SavePokemonChosen("torchic");
+//game.Start();
+
+
 

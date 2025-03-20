@@ -10,20 +10,20 @@ namespace MyPet.Views
 {
     internal class MenuView
     {
-        public void Options(string nome)
+        public void Options(string playerName)
         {
             Console.Clear();
-            Console.WriteLine($"{nome}, select an option by typing the number:\n" +
+            Console.WriteLine($"{playerName}, select an option by typing the number:\n" +
                 "1 - Adopt a Pet\n" +
                 "2 - See Adopted Pets\n"+
                 "0 - Exit Game");
         }
-        public void AdoptOptions(string name)
+        public void PetInfoOptions(string petName)
         {
             Console.Clear();
             Console.WriteLine("Select an option by typing the number:\n" +
-                $"1 - Know more about {name}" +
-                $"2 - Adopt {name}\n" +
+                $"1 - Know more about {petName}" +
+                $"2 - Adopt {petName}\n" +
                 "0 - Go back\n");
         }
         public void ShowEspecies(List<string> pokemons)

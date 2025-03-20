@@ -13,25 +13,43 @@ namespace MyPet.Controllers
     internal class Game
     {
         private readonly MenuController _menu;
-        private readonly Player _player;
         private readonly Messages _messages;
+        private readonly MenuView _menuView;
+        private readonly Player _player;
+        
 
         private bool playing = true;
 
-        public Game(MenuController menu, Player player, Messages messages)
+        public Game(MenuController menu, Messages messages, Player player, MenuView menuView)
         {
             _menu = menu;
-            _player = player;
             _messages = messages;
+            _player = player;
+            _menuView = menuView;
         }
 
         public void Start()
-        { 
-            while(playing)
-            {
-                _messages.Welcome();
+        {
+            _messages.Welcome();
 
-                _player.Name = _menu.ReadUserName();
+            _player.Name = _menu.ReadUserName();
+
+            while (playing)
+            {
+                _menuView.Options(_player.Name);
+
+                int option = _menu.ReadMenuOption(0, 2);
+
+                switch (option)
+                {
+                    case 0:
+                        playing = false;
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
             }
         }
     }

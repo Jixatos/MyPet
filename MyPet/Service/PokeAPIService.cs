@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -21,15 +22,13 @@ namespace MyPet.Service
 
         public Pet? GetPokemonByName(string pokemonName)
         {
-            
-            RestRequest request = new RestRequest($"pokemon/{pokemonName}", Method.Get);
+            RestRequest request = new($"pokemon/{pokemonName}", Method.Get);
             var response = Client.Execute(request);
 
-            if(!response.IsSuccessful)
+            if (!response.IsSuccessful)
             {
                 return null;
             }
-
             var json = response.Content.ToString();
 
             var myPet = JsonSerializer.Deserialize<Pet>(json);

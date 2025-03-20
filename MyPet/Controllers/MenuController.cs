@@ -16,15 +16,18 @@ namespace MyPet.Controllers
         private readonly EspeciesService _especiesService;
         private readonly MenuView _menuView;
         private readonly PetView _petView;
+        private readonly PokeAPIService _aPIService;
 
         public MenuController(EspeciesService especiesService,
                               MenuView menuView,
                               PetView petView,
-                              Messages messages)
+                              Messages messages,
+                              PokeAPIService aPIService)
         {
             _especiesService = especiesService;
             _menuView = menuView;
             _petView = petView;
+            _aPIService = aPIService;
         }
 
         public string ReadUserName()
@@ -49,7 +52,7 @@ namespace MyPet.Controllers
             {
                 Console.WriteLine($"\n{message}");
                 Console.WriteLine("1 - Yes\n2 - No");
-                input = ReadUserInputNumeric();
+                input = ReadMenuOption();
                 switch (input)
                 {
                     case 1:
@@ -64,29 +67,17 @@ namespace MyPet.Controllers
             return false;
         }
 
-        public void AdoptPetOption(string nome, Pet pet)
-        {
-            _menuView.AdoptOptions(nome);
-
-            int input = ReadUserInputNumeric(0, 2);
-            switch (input)
-            {
-                case 1:
-                    _petView.PetInfos(pet);
-                    break;
-                default:
-                    break;
-            }
-        }
-        public void ChoosePetOption()
+        public string AdoptOptions()
         {
             List<string> especies = _especiesService.GetEspeciesNames();
             _menuView.ShowEspecies(especies);
 
-            int input = ReadUserInputNumeric(0, especies.Count);
+            int index = ReadMenuOption(0, especies.Count);
+
+            return especies[index];
         }
 
-        public int ReadUserInputNumeric(int min = 1, int max = 2)
+        public int ReadMenuOption(int min = 1, int max = 2)
         {
             int value;
             do
