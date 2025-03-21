@@ -22,7 +22,7 @@ namespace MyPet.Views
         {
             Console.Clear();
             Console.WriteLine("Select an option by typing the number:\n" +
-                $"1 - Know more about {petName}" +
+                $"1 - Know more about {petName}\n" +
                 $"2 - Adopt {petName}\n" +
                 "0 - Go back\n");
         }

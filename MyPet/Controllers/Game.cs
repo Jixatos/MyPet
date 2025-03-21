@@ -53,6 +53,7 @@ namespace MyPet.Controllers
                         break;
                     case 2:
                         _playerView.ShowPlayerPokemons(_player.Pets);
+                        _menu.ConfirmOptions("Do you want to go back?");
                         break;
                 }
             }

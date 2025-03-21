@@ -83,7 +83,7 @@ namespace MyPet.Controllers
 
             int index = ReadMenuOption(0, especies.Count);
 
-            return especies[index];
+            return especies[index-1];
         }
 
         public void PetInfoOptions(string petName)
@@ -105,7 +105,8 @@ namespace MyPet.Controllers
                         menu = ConfirmOptions("Do you want to go back?");
                         break;
                     case 2:
-                        menu = _playerController.SavePokemonChosen(petName);
+                        _playerController.SavePokemonChosen(petName);
+                        menu = ConfirmOptions("Do you want to go back?");
                         break;
 
                 }
