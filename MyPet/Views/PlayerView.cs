@@ -9,20 +9,26 @@ namespace MyPet.Views
 {
     class PlayerView
     {
-        public void ShowPlayerPokemons(List<Pet> pets)
+        private readonly Player _player;
+
+        public PlayerView(Player player)
         {
-            Console.Clear();
-            if (pets.Count == 0)
-            {
-                Console.WriteLine("You doesn't have a pet yet");
-                return;
-            }
+            _player = player;
+        }
+
+        public void ShowPlayerPets(List<Pet> pets)
+        {
             Console.WriteLine("Pets:");
 
             for (int i = 0; i < pets.Count; i++)
             {
                 Console.WriteLine($"{i + 1} - {pets[i].Name}");
             }
+        }
+
+        public void NoPets()
+        {
+            Console.WriteLine($"{_player.Name} doen't have an adopted pet yet.");
         }
     }
 }

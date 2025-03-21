@@ -10,5 +10,10 @@ namespace MyPet.Models
     {
         public string Name {  get; set; }
         public List<Pet> Pets { get; set; } = new List<Pet>();
+
+        public void AdoptPet(Pet pet)
+        {
+            Pets.Add(pet);
+        }
     }
 }

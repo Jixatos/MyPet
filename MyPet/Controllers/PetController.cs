@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace MyPet.Controllers
 {
@@ -24,18 +25,40 @@ namespace MyPet.Controllers
 
         public bool ReadPetInfo(string petName)
         {
-            try
-            {
-                Pet pet = _aPIService.GetPokemonByName(petName);
+            Pet pet = _aPIService.GetPokemonByName(petName);
 
-                _petView.PetInfos(pet);
-                return true;
-            }
-            catch (Exception ex)
+            if (pet == null)
             {
-                Console.WriteLine($"Inespered Error: '{petName}': {ex.Message}");
+                Console.WriteLine($"Error: Pokémon '{petName}' not found.");
                 return false;
             }
+
+            _petView.PetInfos(pet);
+            return true;
+        }
+
+        public void ShowPetStatus(Pet pet)
+        {
+            _petView.PetInfos(pet);
+
+            _petView.HumorLevel(pet);
+            _petView.FatigueLevel(pet);
+            _petView.HungryLevel(pet);
+        }
+        public void Feed(Pet pet)
+        {
+            _petView.FeedMessage(pet.Name);
+            pet.Eat();
+        }
+        public void PlayWith(Pet pet)
+        {
+            _petView.PlayMessage(pet.Name);
+            pet.Play();
+        }
+        public void PutToSleep(Pet pet)
+        {
+            _petView.SleepMessage(pet.Name);
+            pet.Sleep();
         }
     }
 }

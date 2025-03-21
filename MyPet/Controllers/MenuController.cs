@@ -15,20 +15,25 @@ namespace MyPet.Controllers
     {
         private readonly EspeciesService _especiesService;
         private readonly MenuView _menuView;
-        private readonly Messages _messages;
         private readonly PlayerController _playerController;
         private readonly PetController _petController;
+        private readonly Messages _messages;
         public MenuController(EspeciesService especiesService,
                               MenuView menuView,
-                              Messages messages,
                               PlayerController playerController,
-                              PetController petController)
+                              PetController petController,
+                              Messages message)
         {
             _especiesService = especiesService;
             _menuView = menuView;
-            _messages = messages;
             _playerController = playerController;
             _petController = petController;
+            _messages = message;
+        }
+
+        public void Init(string playerName)
+        {
+            _menuView.Options(playerName);
         }
 
         public string ReadUserName()
@@ -81,14 +86,14 @@ namespace MyPet.Controllers
             List<string> especies = _especiesService.GetEspeciesNames();
             _menuView.ShowEspecies(especies);
 
-            int index = ReadMenuOption(0, especies.Count);
+            int index = ReadMenuOption(0, especies.Count) - 1;
 
-            return especies[index-1];
+            return especies[index];
         }
 
         public void PetInfoOptions(string petName)
         {
-            bool menu = false;
+            bool menu = true;
             do
             {
                 _menuView.PetInfoOptions(petName);
@@ -108,9 +113,8 @@ namespace MyPet.Controllers
                         _playerController.SavePokemonChosen(petName);
                         menu = ConfirmOptions("Do you want to go back?");
                         break;
-
                 }
-            } while (!menu);
+            } while (menu);
 
         }
 
@@ -137,6 +141,41 @@ namespace MyPet.Controllers
         public bool UserInputIsInRange(int min, int max, int input)
         {
             return (input >= min || input <= max) ? true : false;
+        }
+
+        public Pet SelectPetOption(List<Pet> pets)
+        {
+            _playerController.ShowPlayerPets();
+
+            int index = ReadMenuOption(0, pets.Count) - 1;
+            return pets[index];
+        }
+
+        public void InteractionsOptions(Pet pet)
+        {
+            bool menu = true;
+            do
+            {
+                int option = ReadMenuOption(0, 4);
+                switch (option)
+                {
+                    case 0:
+                        menu = false;
+                        break;
+                    case 1:
+                        _petController.ShowPetStatus(pet);
+                        break;
+                    case 2:
+                        _petController.Feed(pet);
+                        break;
+                    case 3:
+                        _petController.PlayWith(pet);
+                        break;
+                    case 4:
+                        _petController.PutToSleep(pet);
+                        break;
+                }
+            } while (menu);
         }
     }
 }

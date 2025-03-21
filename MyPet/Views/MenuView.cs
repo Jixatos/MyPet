@@ -18,14 +18,16 @@ namespace MyPet.Views
                 "2 - See Adopted Pets\n"+
                 "0 - Exit Game");
         }
+
         public void PetInfoOptions(string petName)
         {
             Console.Clear();
             Console.WriteLine("Select an option by typing the number:\n" +
                 $"1 - Know more about {petName}\n" +
                 $"2 - Adopt {petName}\n" +
-                "0 - Go back\n");
+                "0 - Go back");
         }
+
         public void ShowEspecies(List<string> pokemons)
         {
             Console.Clear();
@@ -35,6 +37,16 @@ namespace MyPet.Views
             {
                 Console.WriteLine($"{i + 1} - {pokemons[i].ToUpper()}");
             }
+        }
+
+        public void Interactions(string petName)
+        {
+            Console.Clear();
+            Console.WriteLine("Select an option by typing the number:\n" +
+                $"1 - Know how {petName} is\n" +
+                $"2 - Feed {petName}\n" +
+                $"3 - Play with {petName}\n" +
+                "0 - Go back");
         }
     }
 }
