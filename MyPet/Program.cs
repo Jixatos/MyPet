@@ -7,10 +7,11 @@ var serviceProvider = DependencyInjectionConfig.Configure();
 
 MenuController menuController = serviceProvider.GetRequiredService<MenuController>();
 PlayerController playerController = serviceProvider.GetRequiredService<PlayerController>();
+PetController petController = serviceProvider.GetRequiredService<PetController>();
 Game game = serviceProvider.GetRequiredService<Game>();
 
-playerController.SavePokemonChosen("torchic");
-//game.Start();
+
+game.Start();
 
 
 

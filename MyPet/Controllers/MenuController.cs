@@ -15,19 +15,20 @@ namespace MyPet.Controllers
     {
         private readonly EspeciesService _especiesService;
         private readonly MenuView _menuView;
-        private readonly PetView _petView;
-        private readonly PokeAPIService _aPIService;
-
+        private readonly Messages _messages;
+        private readonly PlayerController _playerController;
+        private readonly PetController _petController;
         public MenuController(EspeciesService especiesService,
                               MenuView menuView,
-                              PetView petView,
                               Messages messages,
-                              PokeAPIService aPIService)
+                              PlayerController playerController,
+                              PetController petController)
         {
             _especiesService = especiesService;
             _menuView = menuView;
-            _petView = petView;
-            _aPIService = aPIService;
+            _messages = messages;
+            _playerController = playerController;
+            _petController = petController;
         }
 
         public string ReadUserName()
@@ -37,11 +38,18 @@ namespace MyPet.Controllers
             {
                 Console.WriteLine("What's your name?");
 
-                input = Console.ReadLine().Trim();
+                input = Console.ReadLine()?.Trim();
 
-                input = ConfirmOptions($"Do you want to be called by {input}?") ? input : "";
+                if (!string.IsNullOrEmpty(input))
+                {
+                    input = ConfirmOptions($"Do you want to be called by {input}?") ? input : string.Empty;
+                }
+                else
+                {
+                    Console.WriteLine("Enter a valid name");
+                }
 
-            } while (!string.IsNullOrEmpty(input));
+            } while (string.IsNullOrEmpty(input));
             return input;
         }
 
@@ -67,6 +75,7 @@ namespace MyPet.Controllers
             return false;
         }
 
+
         public string AdoptOptions()
         {
             List<string> especies = _especiesService.GetEspeciesNames();
@@ -75,6 +84,33 @@ namespace MyPet.Controllers
             int index = ReadMenuOption(0, especies.Count);
 
             return especies[index];
+        }
+
+        public void PetInfoOptions(string petName)
+        {
+            bool menu = false;
+            do
+            {
+                _menuView.PetInfoOptions(petName);
+
+                int input = ReadMenuOption(0, 2);
+
+                switch (input)
+                {
+                    case 0:
+                        menu = true;
+                        break;
+                    case 1:
+                        _petController.ReadPetInfo(petName);
+                        menu = ConfirmOptions("Do you want to go back?");
+                        break;
+                    case 2:
+                        menu = _playerController.SavePokemonChosen(petName);
+                        break;
+
+                }
+            } while (!menu);
+
         }
 
         public int ReadMenuOption(int min = 1, int max = 2)

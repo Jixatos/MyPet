@@ -26,6 +26,9 @@ namespace MyPet.Data
                 .AddSingleton<Game>()
                 .AddSingleton<PlayerController>()
                 .AddSingleton<PokeAPIService>()
+                .AddSingleton<PetController>()
+                .AddSingleton<PlayerView>()
+
                 .BuildServiceProvider();
         }
     }

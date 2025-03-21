@@ -19,9 +19,9 @@ namespace MyPet.Views
             Console.WriteLine("Thanks por playing!");
         }
 
-        public void AdoptCongrats(string playerName, string petName)
+        public void AdoptCongrats(string petName)
         {
-            Console.WriteLine($"Congratulations {playerName}, you adopted a {petName} sucessfully!");
+            Console.WriteLine($"Congratulations, you adopted {petName} sucessfully!");
         }
     }
 }

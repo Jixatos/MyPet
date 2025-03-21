@@ -20,9 +20,9 @@ namespace MyPet.Service
             Client = new RestClient("https://pokeapi.co/api/v2/");
         }
 
-        public Pet? GetPokemonByName(string pokemonName)
+        public Pet? GetPokemonByName(string petName)
         {
-            RestRequest request = new($"pokemon/{pokemonName}", Method.Get);
+            RestRequest request = new($"pokemon/{petName}", Method.Get);
             var response = Client.Execute(request);
 
             if (!response.IsSuccessful)

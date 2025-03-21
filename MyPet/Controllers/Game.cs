@@ -13,19 +13,21 @@ namespace MyPet.Controllers
     internal class Game
     {
         private readonly MenuController _menu;
+        private readonly Player _player;
         private readonly Messages _messages;
         private readonly MenuView _menuView;
-        private readonly Player _player;
-        
+        private readonly PlayerView _playerView;
+
 
         private bool playing = true;
 
-        public Game(MenuController menu, Messages messages, Player player, MenuView menuView)
+        public Game(MenuController menu, Player player, Messages messages, MenuView menuView, PlayerView playerView)
         {
             _menu = menu;
-            _messages = messages;
             _player = player;
+            _messages = messages;
             _menuView = menuView;
+            _playerView = playerView;
         }
 
         public void Start()
@@ -46,8 +48,11 @@ namespace MyPet.Controllers
                         playing = false;
                         break;
                     case 1:
+                        string petName = _menu.AdoptOptions();
+                        _menu.PetInfoOptions(petName);
                         break;
                     case 2:
+                        _playerView.ShowPlayerPokemons(_player.Pets);
                         break;
                 }
             }

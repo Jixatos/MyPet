@@ -15,24 +15,29 @@ namespace MyPet.Controllers
     {
         private readonly Player _player;
         private readonly PokeAPIService _aPIService;
+        private readonly Messages _messages;
 
-        public PlayerController(PokeAPIService apiService, Player player)
+        public PlayerController(PokeAPIService apiService, Player player, Messages messages)
         {
             _aPIService = apiService;
             _player = player;
+            _messages = messages;
         }
-        
-        public void SavePokemonChosen(string petName)
+            
+        public bool SavePokemonChosen(string petName)
         {
-            var pet = _aPIService.GetPokemonByName(petName);
+            try
+            {
+                Pet pet = _aPIService.GetPokemonByName(petName);
 
-            if(pet == null)
-            {
-                Console.WriteLine("Error with the request on the API");
-            }
-            else
-            {
                 _player.Pets.Add(pet);
+                _messages.AdoptCongrats(pet.Name);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Inespered Error: '{petName}': {ex.Message}");
+                return false;
             }
         }
     }
