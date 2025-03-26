@@ -5,7 +5,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using MyPet.Models;
+using MyPet.Data.Models;
 using MyPet.View;
 using RestSharp;
 

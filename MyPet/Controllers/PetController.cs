@@ -1,4 +1,4 @@
-﻿using MyPet.Models;
+﻿using MyPet.Data.Models;
 using MyPet.Service;
 using MyPet.View;
 using RestSharp;

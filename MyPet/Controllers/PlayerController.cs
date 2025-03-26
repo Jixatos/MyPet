@@ -1,4 +1,4 @@
-﻿using MyPet.Models;
+﻿using MyPet.Data.Models;
 using MyPet.Service;
 using MyPet.Views;
 using System;

@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace MyPet.Models
+namespace MyPet.Data.Models
 {
     internal class Pet
     {

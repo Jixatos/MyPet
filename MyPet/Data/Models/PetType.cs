@@ -5,11 +5,11 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace MyPet.Models
+namespace MyPet.Data.Models
 {
-    class Especies
+    class PetType
     {
-        [JsonPropertyName("especies")]
-        public List<string> Nomes { get; set; } = new List<string>();
+        [JsonPropertyName("type")]
+        public TypeInfo Type { get; set; }
     }
 }

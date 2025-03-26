@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyPet.Models
+namespace MyPet.Data.Models
 {
     internal class Player
     {
