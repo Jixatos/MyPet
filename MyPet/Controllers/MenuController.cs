@@ -31,63 +31,41 @@ namespace MyPet.Controllers
             _messages = message;
         }
 
-        public void Init(string playerName)
+        public void Start(Player player)
         {
-            _menuView.Options(playerName);
-        }
+            _menuView.Options(player.Name);
 
-        public string ReadUserName()
-        {
-            string input;
-            do
+            int option = ReadMenuOption(0, 2);
+
+            switch (option)
             {
-                Console.WriteLine("What's your name?");
-
-                input = Console.ReadLine()?.Trim();
-
-                if (!string.IsNullOrEmpty(input))
-                {
-                    input = ConfirmOptions($"Do you want to be called by {input}?") ? input : string.Empty;
-                }
-                else
-                {
-                    Console.WriteLine("Enter a valid name");
-                }
-
-            } while (string.IsNullOrEmpty(input));
-            return input;
+                case 0:
+                    Environment.Exit(0);
+                    break;
+                case 1:
+                    Adoption();
+                    break;
+                case 2:
+                    Adopted(player.Pets);
+                    break;
+            }
         }
-            
-        public bool ConfirmOptions(string message)
+
+        public void Adoption()
         {
-            int input;
-            do
-            {
-                Console.WriteLine($"\n{message}");
-                Console.WriteLine("1 - Yes\n2 - No");
-                input = ReadMenuOption();
-                switch (input)
-                {
-                    case 1:
-                        return true;
-                    case 2:
-                        return false;
-                    default:
-                        Console.WriteLine("Respond with 1 for Yes or 2 for No");
-                        break;
-                }
-            } while (input != 1 || input != 2);
-            return false;
+            string petName = SelectPetToAdopt();
+
+            PetInfoOptions(petName);
         }
 
-        public string AdoptOptions()
+        public string SelectPetToAdopt()
         {
             List<string> especies = _especiesService.GetEspeciesNames();
             _menuView.ShowEspecies(especies);
 
-            int index = ReadMenuOption(0, especies.Count) - 1;
+            int index = ReadMenuOption(max: especies.Count);
 
-            return especies[index];
+            return especies[index - 1];
         }
 
         public void PetInfoOptions(string petName)
@@ -115,6 +93,103 @@ namespace MyPet.Controllers
             } while (!menu);
         }
 
+        public void Adopted(List<Pet> pets)
+        {
+            Pet? pet = SelectPlayerPet(pets);
+
+            if (pet == null)
+            {
+                return;
+            }
+            Interactions(pet);
+        }
+
+        public Pet? SelectPlayerPet(List<Pet> pets)
+        {
+            _playerController.ShowPlayerPets(pets);
+
+            if (!_playerController.PlayerHasPets(pets))
+            {
+                return null;
+            }
+
+            int index = ReadMenuOption(min: 1, max:pets.Count) - 1;
+
+            return pets[index];
+        }
+
+        public void Interactions(Pet pet)
+        {
+            bool menu = true;
+            do
+            {
+                _menuView.Interactions(pet.Name);
+                int option = ReadMenuOption(0, 4);
+                switch (option)
+                {
+                    case 0:
+                        menu = false;
+                        break;
+                    case 1:
+                        _petController.ShowPetStatus(pet);
+                        break;
+                    case 2:
+                        _petController.Feed(pet);
+                        break;
+                    case 3:
+                        _petController.PlayWith(pet);
+                        break;
+                    case 4:
+                        _petController.PutToSleep(pet);
+                        break;
+                }
+            } while (menu);
+        }
+
+        public string ReadUserName()
+        {
+            string input;
+            do
+            {
+                Console.WriteLine("What's your name?");
+
+                input = Console.ReadLine()?.Trim();
+
+                if (!string.IsNullOrEmpty(input))
+                {
+                    input = ConfirmOptions($"Do you want to be called by {input}?") ? input : string.Empty;
+                }
+                else
+                {
+                    Console.WriteLine("Enter a valid name");
+                }
+
+            } while (string.IsNullOrEmpty(input));
+            return input;
+        }
+
+        public bool ConfirmOptions(string message)
+        {
+            int input;
+            do
+            {
+                Console.WriteLine($"\n{message}");
+                Console.WriteLine("1 - Yes\n2 - No");
+                input = ReadMenuOption();
+                switch (input)
+                {
+                    case 1:
+                        return true;
+                    case 2:
+                        return false;
+                    default:
+                        Console.WriteLine("Respond with 1 for Yes or 2 for No");
+                        break;
+                }
+            } while (input != 1 || input != 2);
+            return false;
+        }
+
         public int ReadMenuOption(int min = 1, int max = 2)
         {
             int value;
@@ -137,43 +212,7 @@ namespace MyPet.Controllers
 
         public bool UserInputIsInRange(int min, int max, int input)
         {
-            return (input >= min || input <= max) ? true : false;
-        }
-
-        public Pet SelectPetOption(List<Pet> pets)
-        {
-            _playerController.ShowPlayerPets();
-
-            int index = ReadMenuOption(0, pets.Count) - 1;
-
-            return pets[index];
-        }
-
-        public void InteractionsOptions(Pet pet)
-        {
-            bool menu = true;
-            do
-            {
-                int option = ReadMenuOption(0, 4);
-                switch (option)
-                {
-                    case 0:
-                        menu = false;
-                        break;
-                    case 1:
-                        _petController.ShowPetStatus(pet);
-                        break;
-                    case 2:
-                        _petController.Feed(pet);
-                        break;
-                    case 3:
-                        _petController.PlayWith(pet);
-                        break;
-                    case 4:
-                        _petController.PutToSleep(pet);
-                        break;
-                }
-            } while (menu);
+            return input >= min && input <= max;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace MyPet.Controllers
             _playerView = playerView;
             _messages = messages;
         }
-            
+
         public bool SavePokemonChosen(string petName)
         {
             try
@@ -44,14 +44,25 @@ namespace MyPet.Controllers
             }
         }
 
-        public void ShowPlayerPets()
+        public void ShowPlayerPets(List<Pet> pets)
         {
-            if(_player.Pets.Count == 0)
+            if (PlayerHasPets(pets))
             {
-                _playerView.NoPets();
+                _playerView.ShowPlayerPets(pets);
                 return;
             }
-             _playerView.ShowPlayerPets(_player.Pets);
+            _playerView.NoPets();
+            Thread.Sleep(2000);
+        }
+
+        public bool PlayerHasPets(List<Pet> pets)
+        {
+            return pets.Count > 0 ? true : false;
+        }
+
+        public void NoPets()
+        {
+            _playerView.NoPets();
         }
     }
 }

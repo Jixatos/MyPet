@@ -41,24 +41,29 @@ namespace MyPet.Controllers
         {
             _petView.PetInfos(pet);
 
+            Console.WriteLine("\nState:");
             _petView.HumorLevel(pet);
             _petView.FatigueLevel(pet);
             _petView.HungryLevel(pet);
+            Thread.Sleep(3000);
         }
         public void Feed(Pet pet)
         {
             _petView.FeedMessage(pet.Name);
             pet.Eat();
+            Thread.Sleep(3000);
         }
         public void PlayWith(Pet pet)
         {
             _petView.PlayMessage(pet.Name);
             pet.Play();
+            Thread.Sleep(3000);
         }
         public void PutToSleep(Pet pet)
         {
             _petView.SleepMessage(pet.Name);
             pet.Sleep();
+            Thread.Sleep(5000);
         }
     }
 }

@@ -21,30 +21,30 @@ namespace MyPet.View
         }
         public void HungryLevel(Pet pet)
         {
-            Console.WriteLine(pet.Hungry >= 6 ? $"{(pet.Name).ToUpper()} is hungry." : $"{(pet.Name).ToUpper()} isn't hungry.");
+            Console.WriteLine($"{pet.Name.ToUpper()} is {(pet.Hungry >= 6 ? "hungry." : "not hungry.")}");
         }
 
         public void FatigueLevel(Pet pet)
         {
-            Console.WriteLine(pet.Fatigue >= 6 ? $"{(pet.Name).ToUpper()} is tired." : $"{(pet.Name).ToUpper()} isn't tired.");
+            Console.WriteLine($"{pet.Name.ToUpper()} is {(pet.Fatigue >= 6 ? "tired." : "not tired.")}");
         }
 
         public void HumorLevel(Pet pet)
         {
-            Console.WriteLine(pet.Humor >= 6 ? $"{(pet.Name).ToUpper()} is happy." : $"{(pet.Name).ToUpper()} isn't happy.");
+            Console.WriteLine($"{pet.Name.ToUpper()} is {(pet.Humor >= 6 ? "happy." : "not happy.")}");
         }
 
         public void FeedMessage(string petName)
         {
-            Console.WriteLine($"{petName} ate.");
+            Console.WriteLine($"\n{petName.ToUpper()} ate.");
         }
         public void PlayMessage(string petName)
         {
-            Console.WriteLine($"{petName} is happy to play with you.");
+            Console.WriteLine($"\n{petName.ToUpper()} is happy to play with you.");
         }
         public void SleepMessage(string petName)
         {
-            Console.WriteLine($"{petName} slept and fells refreshed.");
+            Console.WriteLine($"\n{petName.ToUpper()} slept and fells refreshed.");
         }
     }
 }

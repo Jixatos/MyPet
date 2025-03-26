@@ -1,4 +1,4 @@
-﻿using MyPet.Models;
+﻿using MyPet.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,14 +28,14 @@ namespace MyPet.Views
                 "0 - Go back");
         }
 
-        public void ShowEspecies(List<string> pokemons)
+        public void ShowEspecies(List<string> pets)
         {
             Console.Clear();
             Console.WriteLine("Choose your pet:");
 
-            for (int i = 0; i < pokemons.Count; i++)
+            for (int i = 0; i < pets.Count; i++)
             {
-                Console.WriteLine($"{i + 1} - {pokemons[i].ToUpper()}");
+                Console.WriteLine($"{i + 1} - {pets[i].ToUpper()}");
             }
         }
 
@@ -46,6 +46,7 @@ namespace MyPet.Views
                 $"1 - Know how {petName} is\n" +
                 $"2 - Feed {petName}\n" +
                 $"3 - Play with {petName}\n" +
+                $"4 - Put {petName} to sleep\n" +
                 "0 - Go back");
         }
     }

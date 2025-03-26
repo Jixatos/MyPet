@@ -30,24 +30,7 @@ namespace MyPet.Controllers
 
             while (true)
             {
-                _menu.Init(_player.Name);
-
-                int option = _menu.ReadMenuOption(0, 2);
-
-                switch (option)
-                {
-                    case 0:
-                        Environment.Exit(0);
-                        break;
-                    case 1:
-                        string petName = _menu.AdoptOptions();
-                        _menu.PetInfoOptions(petName);
-                        break;
-                    case 2:
-                        Pet pet = _menu.SelectPetOption(_player.Pets);
-                        _menu.InteractionsOptions(pet);
-                        break;
-                }
+                _menu.Start(_player);
             }
         }
     }

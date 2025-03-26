@@ -9,7 +9,7 @@ namespace MyPet.Data.Models
     internal class Player
     {
         public string Name {  get; set; }
-        public List<Pet> Pets { get; set; } = new List<Pet>();
+        public List<Pet> Pets { get; } = [];
 
         public void AdoptPet(Pet pet)
         {

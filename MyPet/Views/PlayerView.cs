@@ -28,7 +28,7 @@ namespace MyPet.Views
 
         public void NoPets()
         {
-            Console.WriteLine($"{_player.Name}, you doesn't have an adopted pet yet.");
+            Console.WriteLine($"\n{_player.Name}, you doesn't have an adopted pet yet.");
         }
     }
 }
