@@ -16,12 +16,14 @@ namespace MyPet.Controllers
         private readonly Player _player;
         private readonly PokeAPIService _aPIService;
         private readonly PlayerView _playerView;
+        private readonly Messages _messages;
 
-        public PlayerController(PokeAPIService apiService, Player player, PlayerView playerView)
+        public PlayerController(PokeAPIService apiService, Player player, PlayerView playerView, Messages messages)
         {
             _aPIService = apiService;
             _player = player;
             _playerView = playerView;
+            _messages = messages;
         }
             
         public bool SavePokemonChosen(string petName)
@@ -31,6 +33,8 @@ namespace MyPet.Controllers
                 Pet pet = _aPIService.GetPokemonByName(petName);
 
                 _player.AdoptPet(pet);
+                _messages.AdoptCongrats(petName);
+                Thread.Sleep(2000);
                 return true;
             }
             catch (Exception ex)

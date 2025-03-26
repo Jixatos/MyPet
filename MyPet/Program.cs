@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyPet.Controllers;
 using MyPet.Data;
-using MyPet.Service;
 
 var serviceProvider = DependencyInjectionConfig.Configure();
 

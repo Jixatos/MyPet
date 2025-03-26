@@ -18,7 +18,7 @@ namespace MyPet.Views
 
         public void ShowPlayerPets(List<Pet> pets)
         {
-            Console.WriteLine("Pets:");
+            Console.WriteLine("\nPets:");
 
             for (int i = 0; i < pets.Count; i++)
             {
@@ -28,7 +28,7 @@ namespace MyPet.Views
 
         public void NoPets()
         {
-            Console.WriteLine($"{_player.Name} doen't have an adopted pet yet.");
+            Console.WriteLine($"{_player.Name}, you doesn't have an adopted pet yet.");
         }
     }
 }

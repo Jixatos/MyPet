@@ -57,7 +57,7 @@ namespace MyPet.Controllers
             } while (string.IsNullOrEmpty(input));
             return input;
         }
-
+            
         public bool ConfirmOptions(string message)
         {
             int input;
@@ -80,7 +80,6 @@ namespace MyPet.Controllers
             return false;
         }
 
-
         public string AdoptOptions()
         {
             List<string> especies = _especiesService.GetEspeciesNames();
@@ -93,7 +92,7 @@ namespace MyPet.Controllers
 
         public void PetInfoOptions(string petName)
         {
-            bool menu = true;
+            bool menu = false;
             do
             {
                 _menuView.PetInfoOptions(petName);
@@ -110,12 +109,10 @@ namespace MyPet.Controllers
                         menu = ConfirmOptions("Do you want to go back?");
                         break;
                     case 2:
-                        _playerController.SavePokemonChosen(petName);
-                        menu = ConfirmOptions("Do you want to go back?");
+                        menu = _playerController.SavePokemonChosen(petName);
                         break;
                 }
-            } while (menu);
-
+            } while (!menu);
         }
 
         public int ReadMenuOption(int min = 1, int max = 2)
@@ -123,7 +120,7 @@ namespace MyPet.Controllers
             int value;
             do
             {
-                string input = Console.ReadLine();
+                string input = Console.ReadLine().Trim();
 
                 if (int.TryParse(input, out value))
                 {
@@ -148,6 +145,7 @@ namespace MyPet.Controllers
             _playerController.ShowPlayerPets();
 
             int index = ReadMenuOption(0, pets.Count) - 1;
+
             return pets[index];
         }
 
