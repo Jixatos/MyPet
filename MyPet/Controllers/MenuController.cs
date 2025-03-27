@@ -84,7 +84,6 @@ namespace MyPet.Controllers
                         break;
                     case 1:
                         _petController.ReadPetInfo(petName);
-                        menu = ConfirmOptions("Do you want to go back?");
                         break;
                     case 2:
                         menu = _playerController.SavePokemonChosen(petName);

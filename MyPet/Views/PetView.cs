@@ -18,6 +18,7 @@ namespace MyPet.View
                 Console.Write($"{type.Type.Name.ToUpper()} ");
             }
             Console.WriteLine("");
+            Thread.Sleep(3000);
         }
         public void HungryLevel(Pet pet)
         {
