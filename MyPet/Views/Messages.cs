@@ -10,6 +10,7 @@ namespace MyPet.Views
     {
         public void Welcome()
         {
+            Console.Clear();
             Console.WriteLine("Welcome to:\n");
             Console.WriteLine(" ##   ##  ##   ##  #######  ####### ########\r\n ### ###  ##   ##  ##   ##  ##         ##\r\n #######  #######  #######  #####      ##\r\n ## # ##       ##  ##       ##         ##\r\n ##   ##  #######  ##       #######    ##\n");
         }
