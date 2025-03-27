@@ -49,6 +49,7 @@ MyPet
 │   ├── Messages.cs
 │   ├── PetView.cs
 │   ├── PlayerView.cs
+├── Program.cs
 ```
 
 ### Explicação das Pastas
@@ -69,12 +70,17 @@ Para rodar o **MyPet**, é necessário ter o **.NET SDK** instalado na sua máqu
    ```sh
    git clone https://github.com/seu-usuario/MyPet.git
    ```
-2. Abra o projeto no Visual Studio ou VS Code.
-3. Compile e execute o jogo.
+2. Navegue até a pasta onde o repositório foi clonado.
+
+3. Dentro dela, entre na pasta do projeto:
+   ```sh
+   cd MyPet/MyPet
+   ```
+4. Compile e execute o jogo.
    ```sh
    dotnet run
    ```
-4. Siga as instruções do menu interativo para adotar e interagir com seu pet!
+5. Siga as instruções do menu interativo para adotar e interagir com seu pet!
 
 
 ## Tecnologias Utilizadas
